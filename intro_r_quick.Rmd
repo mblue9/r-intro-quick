@@ -1,0 +1,87 @@
+---
+title: "Quick introduction to R"
+author: "Maria Doyle"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output:
+  html_notebook:
+    toc: yes
+    toc_depth: 3
+    toc_float: yes
+---
+
+
+# Install R and RStudio
+1. Install R from [here](https://cloud.r-project.org/)
+2. Install RStudio from [here](https://rstudio.com/products/rstudio/download/#download)
+
+
+# Install a package
+
+To install a package in R (e.g. survival) on your computer, you can use `install.packages()`. You only need to install a package once per computer.
+```{r}
+install.packages('survival')
+```
+
+That is how to install packages from the CRAN repository. Many biological packages are in the Bioconductor repository, for those you install as below. You can Google the name of a package and install to see whether it's in CRAN or Bioconductor.
+
+```{r}
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+
+BiocManager::install("limma")
+```
+
+
+# Load a library
+
+To use a package in an R session you use `library()`. You use library every time you start R and want to use a package. You only need to run it once in an R session.
+
+```{r}
+library(survival)
+```
+
+Library loads in all the functions in a package into your session. Sometimes we don't want to load in all functions, we just want to use one, in that case we can use  `name_of_the_package::name_of_the_function`.
+
+
+# Import a file
+
+To import a csv file you can use the built-in `read.csv()`. If it's a tab-delimited file you can use `read.delim()`. Or you if you have the tidyverse *readr* package installed you could use the `read_csv()` and `read_tsv()` functions, which are faster. To import an Excel file you can install the *readxl* package and use `read_excel()`.
+
+```{r}
+mydata <- read.csv("myfile.csv")
+```
+
+
+# To access a column 
+
+You can use the `$` to access the contents of a column.
+
+```{r}
+mydata$column_name
+```
+
+
+# Data types
+
+R uses data types, character (text), numeric (numbers), logical (TRUE/FALSE), factor (categories). Using factors is common in statistical analyses with R. To convert a column to data type factor you can do below.
+
+```{r}
+mydata$column_name <- factor(mydata$column_name) 
+```
+
+
+# Record versions used
+
+It is good practice to note the versions of R and packages that you have used in your analysis with `sessionInfo()`.
+
+```{r}
+sessionInfo()
+```
+
+
+# Resources
+
+[Introduction to R for biologists](https://melbournebioinformatics.github.io/r-intro-biologists/intro_r_biologists.html)  
+[R for Data Science](https://r4ds.had.co.nz/)
+
+
